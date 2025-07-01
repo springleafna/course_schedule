@@ -4,14 +4,24 @@ import json
 import sys
 from typing import List
 from models import Course, RegularLesson, AntiForgetSession
+from ai import call_ai_api
 
 
 def parse_json_input() -> List[Course]:
-    print("请输入课程信息的 JSON 数据（支持多行粘贴），结束请先输入Enter，再输入Ctrl+D:\n")
-    json_input = sys.stdin.read()
+    print("请输入课程信息，结束请先输入Enter，再输入Ctrl+D:\n")
+    course_message = sys.stdin.read()
+    api_response = call_ai_api(course_message)
+
+    # 检查API调用是否成功
+    if not api_response.get("success"):
+        error_info = api_response.get("error", {})
+        raise RuntimeError(f"❌ AI API 调用失败: {error_info.get('message', '未知错误')}")
+
+    # 获取API返回的结果文本
+    result_text = api_response.get("result", "")
 
     try:
-        data = json.loads(json_input)
+        data = json.loads(result_text)
     except json.JSONDecodeError as e:
         raise RuntimeError(f"❌ JSON 解析失败，请检查格式：{e}")
 
