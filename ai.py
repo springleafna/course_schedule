@@ -1,6 +1,7 @@
 from http import HTTPStatus
 from os import getenv
 from dashscope import Application
+from config import APP_ID, DOC_LINK
 
 def call_ai_api(prompt: str) -> dict:
     """
@@ -11,7 +12,7 @@ def call_ai_api(prompt: str) -> dict:
     try:
         response = Application.call(
             api_key=getenv('COURSE_SCHEDULE_APIKEY'),
-            app_id='e783063f43484416a5c4cdd4f0fb1e67',
+            app_id=APP_ID,
             prompt=prompt
         )
 
@@ -22,7 +23,7 @@ def call_ai_api(prompt: str) -> dict:
                     "request_id": response.request_id,
                     "code": response.status_code,
                     "message": response.message,
-                    "doc_link": "https://help.aliyun.com/zh/model-studio/developer-reference/error-code "
+                    "doc_link": DOC_LINK
                 }
             }
         else:

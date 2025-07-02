@@ -29,3 +29,9 @@ WEEKDAY_COLOR_MAP = {
     '星期六': 'FFB6C1',  # 粉红
     '星期日': 'E0FFFF',  # 淡蓝
 }
+
+# 阿里百炼模型应用 ID
+APP_ID = 'e783063f43484416a5c4cdd4f0fb1e67'
+
+# 阿里百炼帮助文档
+DOC_LINK = 'https://help.aliyun.com/zh/model-studio/developer-reference/error-code'
